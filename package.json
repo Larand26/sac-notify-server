@@ -1,0 +1,16 @@
+{
+  "name": "sac-notify-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc && node scripts/copy-assets.js",
+    "start": "node dist/server.js",
+    "dev": "npx tsx watch src/server.ts",
+    "test": "tsc && node dist/tests/test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module"
+}
