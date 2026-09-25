@@ -2,4 +2,4 @@ node_modules/
 .env
 dist/
 src/tests/
-package-lock.json/
+package-lock.json
