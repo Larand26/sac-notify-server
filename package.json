@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "tsup src/server.ts --format esm --clean",
     "start": "node dist/server.js",
-    "dev": "npx tsx watch src/server.ts",
-    "test": "tsc && node dist/tests/test.js"
+    "dev": "tsx watch src/server.ts",
+    "test": "tsup src/tests/test.ts && node dist/tests/test.js"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +25,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
-    "tsup": "^8.5.1"
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2"
   }
 }
