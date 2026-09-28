@@ -10,14 +10,16 @@ routes.get("/", (req: Request, res: Response, next: NextFunction) => {
 routes.post(
   "/magento/webhook",
   (req: Request, res: Response, next: NextFunction) => {
-    const orderData = req.body;
-    const io = req.app.get("io");
+    console.log("[Webhook] Novo pedido recebido:", req.body);
+    res.status(200).json({ success: true, message: "Notificação recebida." });
+    // const orderData = req.body;
+    // const io = req.app.get("io");
 
-    console.log(`[Webhook] Novo pedido recebido: #${orderData.incrementId}`);
-    io.emit("new_order", orderData);
-    res
-      .status(200)
-      .json({ success: true, message: "Notificação enviada ao SAC." });
+    // console.log(`[Webhook] Novo pedido recebido: #${orderData.incrementId}`);
+    // io.emit("new_order", orderData);
+    // res
+    //   .status(200)
+    //   .json({ success: true, message: "Notificação enviada ao SAC." });
   },
 );
 
