@@ -9,8 +9,8 @@ const io = new Server(server, {
     origin: "*",
     methods: ["GET", "POST"],
   },
-  pingInterval: 20000,
-  pingTimeout: 10000,
+  pingInterval: 5000,
+  pingTimeout: 7000,
 });
 
 app.set("io", io);
