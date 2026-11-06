@@ -2,6 +2,24 @@ import app from "./app";
 import http from "http";
 import { Server } from "socket.io";
 import { logger } from "./logger";
+import { pedidosPendentes } from "./routes";
+
+// Railway envia SIGTERM ao reiniciar/fazer deploy: pedidos aguardando o atraso se perdem
+for (const sinal of ["SIGTERM", "SIGINT"] as const) {
+  process.on(sinal, () => {
+    const pendentes = pedidosPendentes();
+    if (pendentes.length) {
+      logger.error(
+        "Server",
+        `Servidor encerrando (${sinal}) com ${pendentes.length} pedido(s) aguardando — NÃO serão notificados`,
+        pendentes,
+      );
+    } else {
+      logger.info("Server", `Servidor encerrando (${sinal})`);
+    }
+    process.exit(0);
+  });
+}
 
 process.on("unhandledRejection", (reason) => {
   logger.error("Process", "Promise rejeitada sem tratamento", reason);
@@ -75,7 +93,7 @@ io.on("connection", (socket) => {
     );
     if (restantes === 0) {
       semClientesDesde = Date.now();
-      logger.error("Socket.io", "Nenhuma extensão conectada agora — pedidos recebidos serão perdidos");
+      logger.error("Socket.io", "Nenhuma extensão conectada agora — pedidos enviados enquanto isso serão perdidos");
     }
   });
 
